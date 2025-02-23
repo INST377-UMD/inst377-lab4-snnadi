@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <title>INST377 - Lab 4</title>
+  
+</head>
+
+<style>
+body {
+    font-family:"Times New Roman", Times, serif;
+    background-color: powderblue;
+    margin: 2px;
+    padding: 5px;
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    padding: 15px;
+    margin: 10px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    max-width: 8000px;
+    margin: 25px auto;
+}
+.box {
+    background-color: rgb(59, 1, 106);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    gap: 5px;
+    width: 86%;
+    box-shadow: 0px 4px 8px rgb(255, 253, 253);
+
+}
+
+</style>
+
+<body>
+    <h1 id="header"> INST377 - Lab 4</h1>
+
+    <div class="container">
+
+        <div class="box">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter name">
+            <button onclick="alertName()">Alert Me!</button>
+        </div>
+
+
+        <div class="box">
+            <button onclick="changeColor()">Change Color</button>
+        </div>
+
+
+        <div class="box">
+            <label for="TextTester">Text Tester:</label>
+            <input type="text" id="TextTester" placeholder="Enter text">
+            <button onclick="validateText()">Validate Text</button>
+        </div>
+
+    
+        <div class="box">
+            <button id = "addtexts" onclick="addText()">Add Text</button>
+        </div>
+    </div>
+
+
+    <script>
+        function alertName() {
+            let name = document.getElementById("name").value;
+            if (name.trim() === "") {
+                alert("Just enter a valid name!");
+                return;
+            }
+            alert("Hi " + name + "!");
+        }
+
+        function changeColor() {
+            let current_color = document.body.style.backgroundColor;
+            let new_color = (current_color === "blue") ? "powderblue" : "blue";
+
+                document.body.style.backgroundColor = new_color;
+                localStorage.setItem("bg_color", new_color);
+            }
+
+            window.onload = function() {
+                let savedColor = localStorage.getItem("bg_color");
+                if (savedColor) {
+                    document.body.style.backgroundColor = savedColor;
+                }
+            };
+
+        function validateText() {
+            let textInput = document.getElementById("TextTester");
+            const validationRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+            if (textInput.value.trim() === "") {
+                alert("Stop being lazy AND TYPE");
+            } else if (validationRegex.test(textInput.value)) {
+                alert("Nah bro bro, that ain't gonna work!");
+                textInput.value = ""; 
+            } else {
+                textInput.value = "";
+            }
+
+        }
+        function addText() {
+            let heading = document.getElementById("header");
+            heading.textContent += " - Add Text";
+            document.getElementById("addtexts").removeAttribute("onclick");
+        }
+    </script>
+</body>
+
+</html>
